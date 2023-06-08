@@ -1,7 +1,8 @@
-
-import '../../../core/extensions/size.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+
+import '../../../core/extensions/size.dart';
+import '../../theme/colors.dart';
 
 class CustomHeader extends StatefulWidget {
   const CustomHeader({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class _CustomHeaderState extends State<CustomHeader> {
     return Container(
       padding: const EdgeInsets.only(left: 12),
       height: context.percentHeight(0.065),
-      color: Colors.white.withOpacity(.15),
+      color: CustomColors.instance.customHeaderAppUIColorWithOpcatity,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [

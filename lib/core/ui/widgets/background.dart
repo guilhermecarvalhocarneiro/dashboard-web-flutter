@@ -10,10 +10,9 @@ class CustomBackground extends StatefulWidget {
 class _CustomBackgroundState extends State<CustomBackground> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: double.infinity,
-      color: Colors.black.withOpacity(.45),
       child: Image.asset(
         'assets/images/background.jpg',
         fit: BoxFit.fill,

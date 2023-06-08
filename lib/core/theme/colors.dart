@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../ui/default_opacity_values/dashboard_opacity.dart';
+
 class CustomColors {
   static CustomColors? _instance;
 
@@ -10,5 +12,9 @@ class CustomColors {
     return _instance!;
   }
 
-  final customBlackUIColorWithOpcatity = Colors.black.withOpacity(.32);
+  final customBlackUIColorWithOpcatity = Colors.black.withOpacity(defaultOpacityMenuDashboard);
+  final customHeaderAppUIColorWithOpcatity = Colors.white.withOpacity(defaultOpacityHeaderDashboard);
+  final customFooterAppUIColorWithOpcatity = Colors.white.withOpacity(defaultOpacityFooterDashboard);
+  final customContentAreaAppUIColorWithOpcatity = Colors.white.withOpacity(defaultOpacityContentAreaDashboard);
+  final customSubMenuAppUIColorWithOpcatity = Colors.white.withOpacity(defaultOpacitySubMenuDashboard);
 }

@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../../../core/extensions/size.dart';
+import '../../../core/helpers/general.dart';
+import '../../../core/mocks/form_page.dart';
+import '../../../core/mocks/list_page.dart';
 import '../../../core/mocks/menu_itens.dart';
 import '../../../core/theme/colors.dart';
+import '../../../core/ui/default_opacity_values/dashboard_opacity.dart';
+import '../../../core/ui/default_size_values/icon_sizes.dart';
 import '../../../core/ui/widgets/background.dart';
-import '../../../core/ui/widgets/custom_button.dart';
+import '../../../core/ui/widgets/custom_buttons_bar.dart';
 import '../../../core/ui/widgets/footer.dart';
 import '../../../core/ui/widgets/header.dart';
 
@@ -19,15 +24,6 @@ class IndexPage extends StatefulWidget {
 class _IndexPageState extends State<IndexPage> {
   bool showContextMenu = true;
   bool showContextMenuIsEnabled = false;
-  bool showSubMenuContato = false;
-  bool showSubMenuFeed = false;
-  bool showSubMenuHome = false;
-  bool showSubMenuSobre = false;
-  bool fixedSubMenuContato = false;
-  bool fixedSubMenuFeed = false;
-  bool fixedSubMenuHome = false;
-  bool fixedSubMenuSobre = false;
-  double _widhtSubMenu = 200;
   String menuSelected = '';
   List<Map<String, dynamic>> menuItensSelected = [];
 
@@ -39,7 +35,6 @@ class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     debugPrint('Executando o build');
-    _widhtSubMenu = context.percentWidth(.12);
     return Scaffold(
       body: buildLayout(),
     );
@@ -63,7 +58,6 @@ class _IndexPageState extends State<IndexPage> {
             ),
           ],
         ),
-        buildSubMenuItensToolbar(),
       ],
     );
   }
@@ -94,9 +88,7 @@ class _IndexPageState extends State<IndexPage> {
       child: Column(
         children: [
           IconButton(
-            onPressed: () {
-              setState(() {});
-            },
+            onPressed: () {},
             icon: const Icon(
               LineIcons.bars,
               color: Colors.white,
@@ -127,10 +119,13 @@ class _IndexPageState extends State<IndexPage> {
               onPressed: () {
                 setState(() {
                   menuItensSelected = item['sub_itens'];
+                  menuSelected = item['title'];
                 });
               },
               icon: Icon(item['icon']),
-              iconSize: context.percentWidth(.018),
+              iconSize: menuSelected == item['title']
+                  ? context.percentWidth(defaultPercentWidthToolbarIconSelected)
+                  : context.percentWidth(defaultPercentWidthToolbarIcon),
               color: Colors.white,
               hoverColor: Colors.deepOrange,
             ),
@@ -139,7 +134,7 @@ class _IndexPageState extends State<IndexPage> {
               item['title'],
               style: TextStyle(
                 color: Colors.white,
-                fontSize: context.percentWidth(.0055),
+                fontSize: context.percentWidth(defaultPercentWidhtLabelIcon),
               ),
             ),
             const SizedBox(height: 24),
@@ -163,21 +158,24 @@ class _IndexPageState extends State<IndexPage> {
           right: 10,
         ),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(.78),
+          color: CustomColors.instance.customContentAreaAppUIColorWithOpcatity,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Coluna Direita'),
-            Row(
-              children: [
-                CustomPrimaryButton(labelButton: 'Botão de Exemplo'),
-                CustomSecundaryButton(labelButton: 'Botão Secundário'),
-                CustomTercearyButton(labelButton: 'Botão Terciário'),
-              ],
+            const Text('Agenda de Contato'),
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(top: 12),
+                child: GeneralHelperUtilsClass.instance.getRandomBoolean()
+                    ? const MockFormPage()
+                    : const MockContactTable(),
+              ),
             ),
+            const CustomButtonsBar(),
           ],
         ),
       ),
@@ -201,7 +199,7 @@ class _IndexPageState extends State<IndexPage> {
             left: 10,
           ),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(.65),
+            color: CustomColors.instance.customSubMenuAppUIColorWithOpcatity,
             borderRadius: BorderRadius.circular(12),
           ),
           child: menuItensSelected.isNotEmpty
@@ -210,11 +208,9 @@ class _IndexPageState extends State<IndexPage> {
                     return Column(
                       children: [
                         IconButton(
-                          onPressed: () {
-                            buildSubMenuWthItens(context, item['title']);
-                          },
+                          onPressed: () {},
                           icon: Icon(item['icon']),
-                          iconSize: context.percentWidth(.018),
+                          iconSize: context.percentWidth(defaultPercentWidthIcon),
                           color: Colors.black,
                           hoverColor: Colors.deepOrange,
                         ),
@@ -223,7 +219,7 @@ class _IndexPageState extends State<IndexPage> {
                           item['title'],
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: context.percentWidth(.0055),
+                            fontSize: context.percentWidth(defaultPercentWidhtLabelIcon),
                           ),
                         ),
                         const SizedBox(height: 24),
@@ -231,148 +227,9 @@ class _IndexPageState extends State<IndexPage> {
                     );
                   }).toList(),
                 )
-              : const Column(
-                  children: [
-                    Center(
-                      child: Text('Coluna Esquerda'),
-                    ),
-                  ],
-                ),
+              : Container(),
         ),
       ),
     );
-  }
-
-  /// Método responsável por mostrar/ocultar o container
-  /// com os subitens de cada menu
-  void buildSubMenuWthItens(BuildContext context, String menu) {
-    switch (menu.toLowerCase()) {
-      case 'contato':
-        setState(() {
-          showContextMenuIsEnabled = true;
-          showSubMenuContato = true;
-          showSubMenuSobre = false;
-          showSubMenuFeed = false;
-          showSubMenuHome = false;
-        });
-        break;
-      case 'home':
-        setState(() {
-          showContextMenuIsEnabled = true;
-          showSubMenuHome = true;
-          showSubMenuSobre = false;
-          showSubMenuFeed = false;
-          showSubMenuContato = false;
-        });
-        break;
-      case 'sobre':
-        setState(() {
-          showContextMenuIsEnabled = true;
-          showSubMenuSobre = true;
-          showSubMenuFeed = false;
-          showSubMenuHome = false;
-          showSubMenuContato = false;
-        });
-        break;
-      case 'feed':
-        setState(() {
-          showContextMenuIsEnabled = true;
-          showSubMenuFeed = true;
-          showSubMenuSobre = false;
-          showSubMenuHome = false;
-          showSubMenuContato = false;
-        });
-        break;
-      default:
-    }
-  }
-
-  /// Método para fixar o submenu
-  void fixedSubMenu(String menuSelected) {
-    if (menuSelected.toLowerCase() == 'contato') {
-      setState(() {
-        fixedSubMenuContato = !fixedSubMenuContato;
-        fixedSubMenuHome = false;
-        fixedSubMenuSobre = false;
-        fixedSubMenuFeed = false;
-      });
-    }
-    if (menuSelected.toLowerCase() == 'home') {
-      setState(() {
-        fixedSubMenuHome = !fixedSubMenuHome;
-        fixedSubMenuContato = false;
-        fixedSubMenuSobre = false;
-        fixedSubMenuFeed = false;
-      });
-    }
-    if (menuSelected.toLowerCase() == 'sobre') {
-      setState(() {
-        fixedSubMenuSobre = !fixedSubMenuSobre;
-        fixedSubMenuContato = false;
-        fixedSubMenuHome = false;
-        fixedSubMenuFeed = false;
-      });
-    }
-    if (menuSelected.toLowerCase() == 'feed') {
-      setState(() {
-        fixedSubMenuFeed = !fixedSubMenuFeed;
-        fixedSubMenuContato = false;
-        fixedSubMenuHome = false;
-        fixedSubMenuSobre = false;
-      });
-    }
-  }
-
-  /// Método para construir o submenu de cada item da
-  /// toolbar que deverá aparecer do lado direito de cada
-  /// item do menu com uma margem esquerda de 12px
-  Widget buildSubMenuItensToolbar() {
-    final leftMargin = context.percentWidth(context.percentWidthFactor) + 2;
-    final marginTopSubMenu = context.percentHeight(0.075);
-    if ((showSubMenuHome && showContextMenu) || fixedSubMenuHome) {
-      return Container(
-        margin: EdgeInsets.only(left: leftMargin, top: marginTopSubMenu),
-        width: _widhtSubMenu,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Colors.orange,
-        ),
-      );
-    }
-    if ((showSubMenuContato && showContextMenu) || fixedSubMenuContato) {
-      return Container(
-        margin: EdgeInsets.only(left: leftMargin, top: marginTopSubMenu),
-        width: _widhtSubMenu,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Colors.deepPurpleAccent,
-        ),
-      );
-    }
-    if ((showSubMenuFeed && showContextMenu) || fixedSubMenuFeed) {
-      return Container(
-        margin: EdgeInsets.only(left: leftMargin, top: marginTopSubMenu),
-        width: _widhtSubMenu,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Colors.blue,
-        ),
-      );
-    }
-    if ((showSubMenuSobre && showContextMenu) || fixedSubMenuSobre) {
-      return Container(
-        margin: EdgeInsets.only(left: leftMargin, top: marginTopSubMenu),
-        width: _widhtSubMenu,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Colors.lightGreenAccent,
-        ),
-      );
-    }
-    return const SizedBox.shrink();
   }
 }

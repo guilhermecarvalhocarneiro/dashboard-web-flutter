@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/extensions/size.dart';
+import '../../theme/colors.dart';
 
 class CustomFooter extends StatefulWidget {
   const CustomFooter({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _CustomFooterState extends State<CustomFooter> {
     return Container(
       height: context.percentHeight(.035),
       padding: const EdgeInsets.only(right: 10),
-      color: Colors.white.withOpacity(.15),
+      color: CustomColors.instance.customFooterAppUIColorWithOpcatity,
       child: const Align(
         alignment: Alignment.centerRight,
         child: Text(
