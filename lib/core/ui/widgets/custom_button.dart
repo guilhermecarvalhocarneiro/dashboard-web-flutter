@@ -42,8 +42,11 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> {
             ),
           ),
         ),
-        child: Text(
-          widget.labelButton,
+        child: Expanded(
+          child: Text(
+            widget.labelButton,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ),
     );
@@ -97,7 +100,12 @@ class _CustomSecundaryButtonState extends State<CustomSecundaryButton> {
             ),
           ),
         ),
-        child: Text(widget.labelButton),
+        child: Expanded(
+          child: Text(
+            widget.labelButton,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       ),
     );
   }
@@ -145,10 +153,13 @@ class _CustomTercearyButtonState extends State<CustomTercearyButton> {
             ),
           ),
         ),
-        child: Text(
-          widget.labelButton,
-          style: const TextStyle(
-            color: Colors.blueAccent,
+        child: Expanded(
+          child: Text(
+            widget.labelButton,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              color: Colors.blueAccent,
+            ),
           ),
         ),
       ),

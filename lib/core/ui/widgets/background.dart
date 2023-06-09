@@ -10,13 +10,11 @@ class CustomBackground extends StatefulWidget {
 class _CustomBackgroundState extends State<CustomBackground> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: double.infinity,
-      child: Image.asset(
-        'assets/images/background.jpg',
-        fit: BoxFit.fill,
-      ),
+    return Image.asset(
+    width: double.infinity,
+    height: double.infinity,
+      'assets/images/bg-12.jpg',
+      fit: BoxFit.cover,
     );
   }
 }

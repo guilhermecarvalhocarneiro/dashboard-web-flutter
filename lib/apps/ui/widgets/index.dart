@@ -7,8 +7,8 @@ import '../../../core/mocks/form_page.dart';
 import '../../../core/mocks/list_page.dart';
 import '../../../core/mocks/menu_itens.dart';
 import '../../../core/theme/colors.dart';
-import '../../../core/ui/default_opacity_values/dashboard_opacity.dart';
 import '../../../core/ui/default_size_values/icon_sizes.dart';
+import '../../../core/ui/default_size_values/screen_areas_sizes.dart';
 import '../../../core/ui/widgets/background.dart';
 import '../../../core/ui/widgets/custom_buttons_bar.dart';
 import '../../../core/ui/widgets/footer.dart';
@@ -80,9 +80,9 @@ class _IndexPageState extends State<IndexPage> {
     debugPrint('Executando o buildCustomToolbar');
     return Container(
       padding: const EdgeInsets.only(top: 12),
-      constraints: BoxConstraints(
-        maxWidth: context.percentWidth(context.percentWidthFactor),
-        minWidth: context.percentWidth(context.percentWidthFactor),
+      constraints: const BoxConstraints(
+        maxWidth: toolbarMaxWidth,
+        minWidth: toolbarMinWidth,
       ),
       color: CustomColors.instance.customBlackUIColorWithOpcatity,
       child: Column(
@@ -123,18 +123,16 @@ class _IndexPageState extends State<IndexPage> {
                 });
               },
               icon: Icon(item['icon']),
-              iconSize: menuSelected == item['title']
-                  ? context.percentWidth(defaultPercentWidthToolbarIconSelected)
-                  : context.percentWidth(defaultPercentWidthToolbarIcon),
+              iconSize: toolbarIconsMaxWidth,
               color: Colors.white,
               hoverColor: Colors.deepOrange,
             ),
             const SizedBox(height: .8),
             Text(
               item['title'],
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
-                fontSize: context.percentWidth(defaultPercentWidhtLabelIcon),
+                fontSize: 15,
               ),
             ),
             const SizedBox(height: 24),
@@ -187,12 +185,12 @@ class _IndexPageState extends State<IndexPage> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInToLinear,
-      width: showContextMenu ? context.percentWidth(.12) : 0,
+      width: subMenuBarMaxWidth,
       child: AnimatedOpacity(
         duration: const Duration(milliseconds: 300),
         opacity: showContextMenu ? 1 : 0,
         child: Container(
-          padding: const EdgeInsets.only(top: 12),
+          padding: const EdgeInsets.only(top: 12, left: 12),
           margin: const EdgeInsets.only(
             top: 10,
             bottom: 10,
@@ -205,7 +203,7 @@ class _IndexPageState extends State<IndexPage> {
           child: menuItensSelected.isNotEmpty
               ? Column(
                   children: menuItensSelected.map((item) {
-                    return Column(
+                    return Row(
                       children: [
                         IconButton(
                           onPressed: () {},
