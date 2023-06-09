@@ -9,6 +9,7 @@ import '../../../core/mocks/menu_itens.dart';
 import '../../../core/theme/colors.dart';
 import '../../../core/ui/default_size_values/icon_sizes.dart';
 import '../../../core/ui/default_size_values/screen_areas_sizes.dart';
+import '../../../core/ui/default_size_values/text_menu_submenu_sizes.dart';
 import '../../../core/ui/widgets/background.dart';
 import '../../../core/ui/widgets/custom_buttons_bar.dart';
 import '../../../core/ui/widgets/footer.dart';
@@ -25,6 +26,7 @@ class _IndexPageState extends State<IndexPage> {
   bool showContextMenu = true;
   bool showContextMenuIsEnabled = false;
   String menuSelected = '';
+  String subMenuSelected = '';
   List<Map<String, dynamic>> menuItensSelected = [];
 
   @override
@@ -101,7 +103,7 @@ class _IndexPageState extends State<IndexPage> {
             height: 1,
             color: Colors.white.withOpacity(.35),
           ),
-          buildCustomMenuItens(context),
+          buildCustomToolbarItens(context),
         ],
       ),
     );
@@ -110,29 +112,48 @@ class _IndexPageState extends State<IndexPage> {
   /// Widget para construir os itens do menu
   /// retornando uma lista de itens convertidos
   /// do tipo Map
-  Widget buildCustomMenuItens(BuildContext context) {
+  Widget buildCustomToolbarItens(BuildContext context) {
     return Column(
       children: menuItens.map((item) {
         return Column(
           children: [
-            IconButton(
-              onPressed: () {
+            Container(
+              decoration: BoxDecoration(
+                color: menuSelected == item['title']
+                    ? CustomColors.instance.customBackgroundColorMenuItenSelected
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    menuItensSelected = item['sub_itens'];
+                    menuSelected = item['title'];
+                    subMenuSelected = '';
+                  });
+                },
+                icon: Icon(item['icon']),
+                iconSize: menuSelected == item['title'] ? toolbarIconsSelectedWidth : toolbarIconsMaxWidth,
+                color: menuSelected == item['title'] ? CustomColors.instance.customMenuItenSelected : Colors.white,
+                hoverColor: Colors.deepOrange,
+              ),
+            ),
+            InkWell(
+              onTap: () {
                 setState(() {
                   menuItensSelected = item['sub_itens'];
                   menuSelected = item['title'];
                 });
               },
-              icon: Icon(item['icon']),
-              iconSize: toolbarIconsMaxWidth,
-              color: Colors.white,
-              hoverColor: Colors.deepOrange,
-            ),
-            const SizedBox(height: .8),
-            Text(
-              item['title'],
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: Text(
+                  item['title'],
+                  style: TextStyle(
+                    color: menuSelected == item['title'] ? CustomColors.instance.customMenuItenSelected : Colors.white,
+                    fontSize: toolbarLabelIconMenuSize,
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 24),
@@ -202,26 +223,33 @@ class _IndexPageState extends State<IndexPage> {
           ),
           child: menuItensSelected.isNotEmpty
               ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: menuItensSelected.map((item) {
-                    return Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(item['icon']),
-                          iconSize: context.percentWidth(defaultPercentWidthIcon),
-                          color: Colors.black,
-                          hoverColor: Colors.deepOrange,
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 12),
+                      child: TextButton.icon(
+                        onPressed: () {
+                          setState(() {
+                            subMenuSelected = item['title'];
+                          });
+                        },
+                        icon: Icon(
+                          item['icon'],
+                          size: subMenuSelected == item['title'] ? toolbarIconsSelectedWidth : toolbarIconsMaxWidth,
+                          color: subMenuSelected == item['title']
+                              ? CustomColors.instance.customIconLabelSubMenuItenSelected
+                              : Colors.black,
                         ),
-                        const SizedBox(height: .8),
-                        Text(
+                        label: Text(
                           item['title'],
                           style: TextStyle(
-                            color: Colors.black,
-                            fontSize: context.percentWidth(defaultPercentWidhtLabelIcon),
+                            color: subMenuSelected == item['title']
+                                ? CustomColors.instance.customIconLabelSubMenuItenSelected
+                                : Colors.black,
+                            fontSize: subMenuLabelIconMenuSize,
                           ),
                         ),
-                        const SizedBox(height: 24),
-                      ],
+                      ),
                     );
                   }).toList(),
                 )

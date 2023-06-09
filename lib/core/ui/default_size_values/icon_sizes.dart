@@ -5,3 +5,6 @@ const double defaultPercentWidhtLabelIcon = 0.0098;
 
 const double toolbarIconsMaxWidth = 24;
 const double toolbarIconsMinWidth = 24;
+
+const double toolbarIconsSelectedWidth = 26;
+const double submenuIconsSelectedWidth = 26;

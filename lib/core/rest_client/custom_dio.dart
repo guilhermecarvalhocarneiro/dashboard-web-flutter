@@ -1,8 +1,8 @@
 import 'package:dio/browser.dart';
 import 'package:dio/dio.dart';
 
-import '../../../storage/storage.dart';
-import 'auth_interceptor.dart';
+import '../storage/storage.dart';
+import 'interceptors/auth_interceptor.dart';
 
 
 class CustomDio extends DioForBrowser {
