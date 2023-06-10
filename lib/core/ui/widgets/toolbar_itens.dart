@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/theme/colors.dart';
-import '../../../core/ui/default_size_values/icon_sizes.dart';
-import '../../../core/ui/default_size_values/text_menu_submenu_sizes.dart';
+import '../theme/colors.dart';
+import '../default_size_values/icon_sizes.dart';
+import '../default_size_values/text_menu_submenu_sizes.dart';
 
 class CustomToolbarItens extends StatefulWidget {
   final List<Map<String, dynamic>> menuItens;

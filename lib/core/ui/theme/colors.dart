@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../ui/default_opacity_values/dashboard_opacity.dart';
+import '../default_opacity_values/dashboard_opacity.dart';
 
 class CustomColors {
   static CustomColors? _instance;
@@ -12,6 +12,9 @@ class CustomColors {
     return _instance!;
   }
 
+  final customPrimaryColor = Colors.blueGrey[700];
+  final customBlackUIColor = Colors.black;
+  final customErrorUIColor = Colors.redAccent;
   final customBlackUIColorWithOpcatity = Colors.black.withOpacity(defaultOpacityMenuDashboard);
   final customHeaderAppUIColorWithOpcatity = Colors.white.withOpacity(defaultOpacityHeaderDashboard);
   final customFooterAppUIColorWithOpcatity = Colors.white.withOpacity(defaultOpacityFooterDashboard);
@@ -22,4 +25,7 @@ class CustomColors {
   final customBackgroundColorMenuItenSelected = Colors.white24;
   final customBackgroundColorSubMenuItenSelected = Colors.white24;
   final customIconLabelSubMenuItenSelected = Colors.white60;
+  final customInputBorderSideColor = Colors.grey[700];
+  final customScaffoldBackgroundColor = Colors.grey[200];
+  final customInputDecorationFillColor = Colors.white;
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../../../core/extensions/size.dart';
-import '../../theme/colors.dart';
+import '../theme/colors.dart';
 
 class CustomHeader extends StatefulWidget {
   const CustomHeader({Key? key}) : super(key: key);

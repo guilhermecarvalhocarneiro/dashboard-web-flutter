@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
-import '../../../core/extensions/size.dart';
-import '../../../core/mocks/menu_itens.dart';
-import '../../../core/theme/colors.dart';
-import '../../../core/ui/default_size_values/screen_areas_sizes.dart';
+import '../../extensions/size.dart';
+import '../../mocks/menu_itens.dart';
+import '../theme/colors.dart';
+import '../default_size_values/screen_areas_sizes.dart';
 import 'toolbar_itens.dart';
 
 class CustomToolbar extends StatefulWidget {

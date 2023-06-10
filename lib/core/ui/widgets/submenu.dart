@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/helpers/nuvols_logger.dart';
-import '../../../core/theme/colors.dart';
-import '../../../core/ui/default_size_values/icon_sizes.dart';
-import '../../../core/ui/default_size_values/screen_areas_sizes.dart';
-import '../../../core/ui/default_size_values/text_menu_submenu_sizes.dart';
+import '../../helpers/nuvols_logger.dart';
+import '../theme/colors.dart';
+import '../default_size_values/icon_sizes.dart';
+import '../default_size_values/screen_areas_sizes.dart';
+import '../default_size_values/text_menu_submenu_sizes.dart';
 
 class CustomSubmenu extends StatefulWidget {
   final bool showContextMenu;

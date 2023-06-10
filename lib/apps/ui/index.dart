@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../core/helpers/nuvols_logger.dart';
-import '../../core/theme/colors.dart';
+import '../../core/ui/theme/colors.dart';
 import '../../core/ui/widgets/background.dart';
 import '../../core/ui/widgets/footer.dart';
 import '../../core/ui/widgets/header.dart';
 import '../index/pages/home.dart';
-import 'widgets/submenu.dart';
-import 'widgets/toolbar.dart';
+import '../../core/ui/widgets/submenu.dart';
+import '../../core/ui/widgets/toolbar.dart';
 
 class IndexPage extends StatefulWidget {
   const IndexPage({super.key});

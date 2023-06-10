@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/extensions/size.dart';
-import '../../theme/colors.dart';
+import '../theme/colors.dart';
 
 class CustomFooter extends StatefulWidget {
   const CustomFooter({Key? key}) : super(key: key);
