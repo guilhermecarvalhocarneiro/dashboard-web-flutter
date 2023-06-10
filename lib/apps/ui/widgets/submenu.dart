@@ -35,7 +35,6 @@ class _CustomSubmenuState extends State<CustomSubmenu> {
 
   @override
   Widget build(BuildContext context) {
-    NuvolsLogger.instance.debug('Valor do widget.itenToolbarIsChanged: ${widget.itenToolbarIsChanged}');
     if (widget.itenToolbarIsChanged) {
       _subMenuSelected = '';
     } else {

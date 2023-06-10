@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../extensions/size.dart';
-import '../default_size_values/button_sizes.dart';
+import '../../helpers/nuvols_logger.dart';
 import 'custom_button.dart';
 
 class CustomButtonsBar extends StatefulWidget {
@@ -20,17 +19,34 @@ class _CustomButtonsBarState extends State<CustomButtonsBar> {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          const CustomPrimaryButton(labelButton: 'Salvar'),
-          CustomSecundaryButton(
-            labelButton: 'Salvar e continuar editando',
-            width: context.percentWidth(defaultPercentWidthSecondaryButtonBar),
+          CustomButton(
+            labelButton: 'Salvar',
+            callbackButtonPressed: callbackSaveButtonPressedOne,
           ),
-          CustomTercearyButton(
+          CustomButton(
+            labelButton: 'Salvar e continuar editando',
+            width: 250,
+            typeButton: CustomButtonType.secundary,
+            callbackButtonPressed: callbackSaveButtonPressedTwo,
+          ),
+          CustomButton(
             labelButton: 'Voltar',
-            width: context.percentWidth(defaultPercentWidthTercearyButton),
+            typeButton: CustomButtonType.terceary,
+            callbackButtonPressed: callbackSaveButtonPressedTree,
           ),
         ],
       ),
     );
+  }
+
+  /// Função para callback do botão de salvar
+  void callbackSaveButtonPressedOne() {
+    NuvolsLogger.instance.info('Clicando no botão Salvar');
+  }
+  void callbackSaveButtonPressedTwo() {
+    NuvolsLogger.instance.info('Salvar e continuar editando');
+  }
+  void callbackSaveButtonPressedTree() {
+    NuvolsLogger.instance.info('Voltar');
   }
 }

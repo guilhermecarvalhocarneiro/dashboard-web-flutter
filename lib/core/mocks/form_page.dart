@@ -49,77 +49,72 @@ class _MockFormPageState extends State<MockFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.only(top: 16.0, left: 12),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Nome'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira um nome válido.';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira um email válido.';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _phoneController,
-                decoration: const InputDecoration(labelText: 'Telefone'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira um telefone válido.';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _whatsappController,
-                decoration: const InputDecoration(labelText: 'WhatsApp'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira um número válido de WhatsApp.';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _dobController,
-                decoration: const InputDecoration(labelText: 'Data de Nascimento'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira uma data de nascimento válida.';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _descriptionController,
-                decoration: const InputDecoration(labelText: 'Descrição'),
-                maxLines: 3,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira uma descrição válida.';
-                  }
-                  return null;
-                },
-              ),
-            ],
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: _nameController,
+            decoration: const InputDecoration(labelText: 'Nome'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Por favor, insira um nome válido.';
+              }
+              return null;
+            },
           ),
-        ),
+          TextFormField(
+            controller: _emailController,
+            decoration: const InputDecoration(labelText: 'Email'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Por favor, insira um email válido.';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            controller: _phoneController,
+            decoration: const InputDecoration(labelText: 'Telefone'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Por favor, insira um telefone válido.';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            controller: _whatsappController,
+            decoration: const InputDecoration(labelText: 'WhatsApp'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Por favor, insira um número válido de WhatsApp.';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            controller: _dobController,
+            decoration: const InputDecoration(labelText: 'Data de Nascimento'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Por favor, insira uma data de nascimento válida.';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            controller: _descriptionController,
+            decoration: const InputDecoration(labelText: 'Descrição'),
+            maxLines: 3,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Por favor, insira uma descrição válida.';
+              }
+              return null;
+            },
+          ),
+        ],
       ),
     );
   }

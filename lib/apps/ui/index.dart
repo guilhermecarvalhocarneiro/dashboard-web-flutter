@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../core/helpers/general.dart';
 import '../../core/helpers/nuvols_logger.dart';
-import '../../core/mocks/form_page.dart';
-import '../../core/mocks/list_page.dart';
 import '../../core/theme/colors.dart';
 import '../../core/ui/widgets/background.dart';
-import '../../core/ui/widgets/custom_buttons_bar.dart';
 import '../../core/ui/widgets/footer.dart';
 import '../../core/ui/widgets/header.dart';
+import '../index/pages/home.dart';
 import 'widgets/submenu.dart';
 import 'widgets/toolbar.dart';
 
@@ -78,7 +75,10 @@ class _IndexPageState extends State<IndexPage> {
             callbackSubItemMenuSelected: callbackSubMenuSelected,
             itenToolbarIsChanged: itenToolbarIsChanged,
           ),
-          // buildContentArea(context, null),
+          buildContentArea(
+            context,
+            const IndexPageHome(),
+          ),
         ],
       ),
     );
@@ -95,23 +95,7 @@ class _IndexPageState extends State<IndexPage> {
           color: CustomColors.instance.customContentAreaAppUIColorWithOpcatity,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Agenda de Contato'),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                margin: const EdgeInsets.only(top: 12),
-                child: GeneralHelperUtilsClass.instance.getRandomBoolean()
-                    ? const MockFormPage()
-                    : const MockContactTable(),
-              ),
-            ),
-            const CustomButtonsBar(), // Erro do Build ocorre aqui
-          ],
-        ),
+        child: child,
       ),
     );
   }
