@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'apps/ui/widgets/index.dart';
+import 'apps/ui/index.dart';
 
 void main() {
   runApp(const MyApp());

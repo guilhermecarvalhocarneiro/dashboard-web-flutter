@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
-import '../../../core/extensions/size.dart';
-import '../../../core/helpers/general.dart';
-import '../../../core/mocks/form_page.dart';
-import '../../../core/mocks/list_page.dart';
-import '../../../core/mocks/menu_itens.dart';
-import '../../../core/theme/colors.dart';
-import '../../../core/ui/default_size_values/icon_sizes.dart';
-import '../../../core/ui/default_size_values/screen_areas_sizes.dart';
-import '../../../core/ui/default_size_values/text_menu_submenu_sizes.dart';
-import '../../../core/ui/widgets/background.dart';
-import '../../../core/ui/widgets/custom_buttons_bar.dart';
-import '../../../core/ui/widgets/footer.dart';
-import '../../../core/ui/widgets/header.dart';
+import '../../core/extensions/size.dart';
+import '../../core/helpers/general.dart';
+import '../../core/mocks/form_page.dart';
+import '../../core/mocks/list_page.dart';
+import '../../core/mocks/menu_itens.dart';
+import '../../core/theme/colors.dart';
+import '../../core/ui/default_size_values/icon_sizes.dart';
+import '../../core/ui/default_size_values/screen_areas_sizes.dart';
+import '../../core/ui/default_size_values/text_menu_submenu_sizes.dart';
+import '../../core/ui/widgets/background.dart';
+import '../../core/ui/widgets/custom_buttons_bar.dart';
+import '../../core/ui/widgets/footer.dart';
+import '../../core/ui/widgets/header.dart';
+import 'widgets/submenu.dart';
 
 class IndexPage extends StatefulWidget {
   const IndexPage({super.key});
@@ -36,7 +37,7 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('Executando o build');
+    // debugPrint('Executando o build, com os seguintes parâmetros: \n showContextMenu: $showContextMenu, \n showContextMenuIsEnabled: $showContextMenuIsEnabled, \n menuSelected: $menuSelected, \n subMenuSelected: $subMenuSelected, \n menuItensSelected: ${menuItensSelected.toList().toString()}');
     return Scaffold(
       body: buildLayout(),
     );
@@ -66,11 +67,17 @@ class _IndexPageState extends State<IndexPage> {
 
   /// Widget para construir a área central da tela
   Widget buildCustomGlobalContent(BuildContext context) {
-    debugPrint('Executando o buildCustomGlobalContent');
+    // debugPrint('Executando o buildCustomGlobalContent com os seguintes parâmetros: \n showContextMenu: $showContextMenu, \n showContextMenuIsEnabled: $showContextMenuIsEnabled, \n menuSelected: $menuSelected, \n subMenuSelected: $subMenuSelected, \n menuItensSelected: ${menuItensSelected.toList().toString()}');
     return Expanded(
       child: Row(
         children: [
-          buildCustomContextMenu(context),
+          CustomSubmenu(
+            showContextMenu: showContextMenu,
+            showContextMenuIsEnabled: showContextMenuIsEnabled,
+            menuSelected: menuSelected,
+            subMenuSelected: subMenuSelected,
+            menuItensSelected: menuItensSelected,
+          ),
           buildContentArea(context, null),
         ],
       ),
@@ -79,7 +86,7 @@ class _IndexPageState extends State<IndexPage> {
 
   /// Widget para construir a toolbar lateral
   Widget buildCustomToolbar() {
-    debugPrint('Executando o buildCustomToolbar');
+    // debugPrint('Executando o buildCustomToolbar');
     return Container(
       padding: const EdgeInsets.only(top: 12),
       constraints: const BoxConstraints(
@@ -109,6 +116,24 @@ class _IndexPageState extends State<IndexPage> {
     );
   }
 
+  /// Método auxiliar para setar os valores quando um item do
+  /// submenu for clicado
+  void setValuesWhenMenuItemIsChoosen(
+    bool showContextMenu,
+    bool showContextMenuIsEnabled,
+    String menuSelected,
+    String subMenuSelected,
+    List<Map<String, dynamic>> menuItensSelected,
+  ) {
+    setState(() {
+      showContextMenu = showContextMenu;
+      showContextMenuIsEnabled = showContextMenuIsEnabled;
+      menuSelected = menuSelected;
+      subMenuSelected = subMenuSelected;
+      menuItensSelected = menuItensSelected;
+    });
+  }
+
   /// Widget para construir os itens do menu
   /// retornando uma lista de itens convertidos
   /// do tipo Map
@@ -126,11 +151,13 @@ class _IndexPageState extends State<IndexPage> {
               ),
               child: IconButton(
                 onPressed: () {
-                  setState(() {
-                    menuItensSelected = item['sub_itens'];
-                    menuSelected = item['title'];
-                    subMenuSelected = '';
-                  });
+                  setValuesWhenMenuItemIsChoosen(
+                    showContextMenu = true,
+                    showContextMenuIsEnabled = true,
+                    menuSelected = item['title'],
+                    subMenuSelected = '',
+                    menuItensSelected = item['sub_itens'],
+                  );
                 },
                 icon: Icon(item['icon']),
                 iconSize: menuSelected == item['title'] ? toolbarIconsSelectedWidth : toolbarIconsMaxWidth,
@@ -140,10 +167,13 @@ class _IndexPageState extends State<IndexPage> {
             ),
             InkWell(
               onTap: () {
-                setState(() {
-                  menuItensSelected = item['sub_itens'];
-                  menuSelected = item['title'];
-                });
+                setValuesWhenMenuItemIsChoosen(
+                  showContextMenu = true,
+                  showContextMenuIsEnabled = true,
+                  menuSelected = item['title'],
+                  subMenuSelected = '',
+                  menuItensSelected = item['sub_itens'],
+                );
               },
               child: Padding(
                 padding: const EdgeInsets.only(top: 4),
@@ -201,61 +231,4 @@ class _IndexPageState extends State<IndexPage> {
     );
   }
 
-  /// Widget para contruir o menu de contexto
-  Widget buildCustomContextMenu(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 250),
-      curve: Curves.easeInToLinear,
-      width: subMenuBarMaxWidth,
-      child: AnimatedOpacity(
-        duration: const Duration(milliseconds: 300),
-        opacity: showContextMenu ? 1 : 0,
-        child: Container(
-          padding: const EdgeInsets.only(top: 12, left: 12),
-          margin: const EdgeInsets.only(
-            top: 10,
-            bottom: 10,
-            left: 10,
-          ),
-          decoration: BoxDecoration(
-            color: CustomColors.instance.customSubMenuAppUIColorWithOpcatity,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: menuItensSelected.isNotEmpty
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: menuItensSelected.map((item) {
-                    return Container(
-                      margin: const EdgeInsets.only(bottom: 12),
-                      child: TextButton.icon(
-                        onPressed: () {
-                          setState(() {
-                            subMenuSelected = item['title'];
-                          });
-                        },
-                        icon: Icon(
-                          item['icon'],
-                          size: subMenuSelected == item['title'] ? toolbarIconsSelectedWidth : toolbarIconsMaxWidth,
-                          color: subMenuSelected == item['title']
-                              ? CustomColors.instance.customIconLabelSubMenuItenSelected
-                              : Colors.black,
-                        ),
-                        label: Text(
-                          item['title'],
-                          style: TextStyle(
-                            color: subMenuSelected == item['title']
-                                ? CustomColors.instance.customIconLabelSubMenuItenSelected
-                                : Colors.black,
-                            fontSize: subMenuLabelIconMenuSize,
-                          ),
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                )
-              : Container(),
-        ),
-      ),
-    );
-  }
 }
