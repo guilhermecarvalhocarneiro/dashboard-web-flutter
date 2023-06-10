@@ -38,6 +38,7 @@ dependencies:
   validatorless: ^1.2.3
   dio: ^5.1.1
   brasil_fields: ^1.9.1
+  logger: ^1.3.0
 
 
 dev_dependencies:

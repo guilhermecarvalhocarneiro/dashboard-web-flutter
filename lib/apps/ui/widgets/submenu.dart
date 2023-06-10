@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/helpers/nuvols_logger.dart';
 import '../../../core/theme/colors.dart';
 import '../../../core/ui/default_size_values/icon_sizes.dart';
 import '../../../core/ui/default_size_values/screen_areas_sizes.dart';
@@ -32,8 +33,8 @@ class _CustomSubmenuState extends State<CustomSubmenu> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('Chamando o build do submenu, com os itens selecionados: \n ${widget.subMenuItens}');
     _subMenuSelected = _subMenuSelected.isNotEmpty ? _subMenuSelected : widget.subMenuSelected;
+    NuvolsLogger.instance.debug('Valor do _subMenuSelected: $_subMenuSelected');
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInToLinear,

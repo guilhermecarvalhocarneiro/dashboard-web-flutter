@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:line_icons/line_icons.dart';
 
-import '../../core/extensions/size.dart';
 import '../../core/helpers/general.dart';
+import '../../core/helpers/nuvols_logger.dart';
 import '../../core/mocks/form_page.dart';
 import '../../core/mocks/list_page.dart';
-import '../../core/mocks/menu_itens.dart';
 import '../../core/theme/colors.dart';
-import '../../core/ui/default_size_values/icon_sizes.dart';
-import '../../core/ui/default_size_values/screen_areas_sizes.dart';
-import '../../core/ui/default_size_values/text_menu_submenu_sizes.dart';
 import '../../core/ui/widgets/background.dart';
 import '../../core/ui/widgets/custom_buttons_bar.dart';
 import '../../core/ui/widgets/footer.dart';
 import '../../core/ui/widgets/header.dart';
 import 'widgets/submenu.dart';
-import 'widgets/toolbar_itens.dart';
+import 'widgets/toolbar.dart';
 
 class IndexPage extends StatefulWidget {
   const IndexPage({super.key});
@@ -49,7 +44,10 @@ class _IndexPageState extends State<IndexPage> {
         const CustomBackground(),
         Row(
           children: [
-            buildCustomToolbar(),
+            CustomToolbar(
+              callbackMenuItensSelected: setValuesWhenMenuItemIsChoosen,
+              callbackItemToolbarSelected: callbackItemToolbarSelected,
+            ),
             Expanded(
               child: Column(
                 children: [
@@ -78,44 +76,7 @@ class _IndexPageState extends State<IndexPage> {
             subMenuItens: subMenuOfToolbarItenSelected,
             callbackSubItemMenuSelected: callbackSubMenuSelected,
           ),
-          buildContentArea(context, null),
-        ],
-      ),
-    );
-  }
-
-  /// Widget para construir a toolbar lateral
-  Widget buildCustomToolbar() {
-    return Container(
-      padding: const EdgeInsets.only(top: 12),
-      constraints: const BoxConstraints(
-        maxWidth: toolbarMaxWidth,
-        minWidth: toolbarMinWidth,
-      ),
-      color: CustomColors.instance.customBlackUIColorWithOpcatity,
-      child: Column(
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              LineIcons.bars,
-              color: Colors.white,
-              size: 30,
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 12, bottom: 8),
-            width: context.percentWidth(.5),
-            height: 1,
-            color: Colors.white.withOpacity(.35),
-          ),
-          CustomToolbarItens(
-            menuItens: menuItens,
-            callbackMenuItensSelected: callBackSetValuesWhenMenuItemIsChoosen,
-            callbackItemToolbarSelected: callbackItemToolbarSelected,
-            menuSelected: menuSelected,
-          ),
-          // buildCustomToolbarItens(context),
+          // buildContentArea(context, null),
         ],
       ),
     );
@@ -124,16 +85,10 @@ class _IndexPageState extends State<IndexPage> {
   /// Widget para construir a área do content principal
   Widget buildContentArea(BuildContext context, Widget? child) {
     return Flexible(
-      flex: 8,
+      flex: 2,
       child: Container(
         padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
-        width: double.infinity,
-        margin: const EdgeInsets.only(
-          top: 10,
-          bottom: 10,
-          left: 10,
-          right: 10,
-        ),
+        margin: const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
         decoration: BoxDecoration(
           color: CustomColors.instance.customContentAreaAppUIColorWithOpcatity,
           borderRadius: BorderRadius.circular(12),
@@ -152,7 +107,7 @@ class _IndexPageState extends State<IndexPage> {
                     : const MockContactTable(),
               ),
             ),
-            const CustomButtonsBar(),
+            const CustomButtonsBar(), // Erro do Build ocorre aqui
           ],
         ),
       ),
@@ -174,7 +129,6 @@ class _IndexPageState extends State<IndexPage> {
     String subMenuSelected,
     List<Map<String, dynamic>> menuItensSelected,
   ) {
-    debugPrint('Valor do setValuesWhenMenuItemIsChoosen: $menuItensSelected');
     setState(() {
       showContextMenu = showContextMenu;
       showContextMenuIsEnabled = showContextMenuIsEnabled;
@@ -182,13 +136,12 @@ class _IndexPageState extends State<IndexPage> {
       subMenuSelected = subMenuSelected;
       subMenuOfToolbarItenSelected = menuItensSelected;
     });
-    debugPrint('Valor do menuItensSelected após o SetState: $menuItensSelected');
   }
 
   /// Função Callback que será passada no construtor da classe CustomSubmenu
   /// que terá a função de atualizar o valor do atributo subMenuSelected
   void callbackSubMenuSelected(String subMenuSelected) {
-    debugPrint('Valor do subMenuSelected: $subMenuSelected');
+    NuvolsLogger.instance.info('Valor do subMenuSelected: $subMenuSelected');
     // setState(() {
     //   subMenuSelected = subMenuSelected;
     // });
@@ -197,7 +150,7 @@ class _IndexPageState extends State<IndexPage> {
   /// Função Callback que será passada no construtor da classe CustomSubmenu
   /// que terá a função de atualizar o valor do atributo subMenuSelected
   void callbackItemToolbarSelected(String toolbarItemSelected) {
-    debugPrint('Valor do toolBarItemSelected: $toolbarItemSelected');
+    NuvolsLogger.instance.info('Valor do toolbarItemSelected: $toolbarItemSelected');
     // setState(() {
     //   subMenuSelected = subMenuSelected;
     // });
