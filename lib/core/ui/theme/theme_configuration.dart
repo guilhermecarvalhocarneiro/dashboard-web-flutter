@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../styles/app_styles.dart';
 import '../styles/text_styles.dart';
 import 'colors.dart';
 
@@ -15,20 +14,16 @@ class ThemeConfiguration {
   }
 
   static final _defaultInputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(10),
+    borderRadius: BorderRadius.circular(8),
     borderSide: BorderSide(
       color: CustomColors.instance.customInputBorderSideColor!,
-      width: 1,
+      width: 0.55,
     ),
   );
 
   static final theme = ThemeData(
     // ScaffoldConfigurationArea
     scaffoldBackgroundColor: CustomColors.instance.customScaffoldBackgroundColor,
-    // ElevatedButtonConfigurationArea
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: AppStyles.instance.primaryButton,
-    ),
     // InputDecorationConfigurationArea
     inputDecorationTheme: InputDecorationTheme(
       fillColor: CustomColors.instance.customInputDecorationFillColor,
@@ -38,8 +33,14 @@ class ThemeConfiguration {
       border: _defaultInputBorder,
       enabledBorder: _defaultInputBorder,
       focusedBorder: _defaultInputBorder,
-      labelStyle: TextStyles.instance.textRegular.copyWith(color: CustomColors.instance.customBlackUIColor),
-      errorStyle: TextStyles.instance.textRegular.copyWith(color: CustomColors.instance.customErrorUIColor),
+      alignLabelWithHint: true,
+      floatingLabelBehavior: FloatingLabelBehavior.never,
+      labelStyle: TextStyles.instance.textRegular
+          .copyWith(color: CustomColors.instance.customBlackUIColor)
+          .copyWith(fontSize: 14),
+      errorStyle: TextStyles.instance.textRegular
+          .copyWith(color: CustomColors.instance.customErrorUIColor)
+          .copyWith(fontSize: 14),
     ),
   );
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/helpers/general.dart';
 import '../../../core/mocks/form_page.dart';
 import '../../../core/mocks/list_page.dart';
+import '../../../core/ui/styles/text_styles.dart';
 import '../../../core/ui/widgets/custom_buttons_bar.dart';
 
 class IndexPageHome extends StatefulWidget {
@@ -20,12 +21,16 @@ class _IndexPageHomeState extends State<IndexPageHome> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Home'),
+          Text(
+            'Home',
+            style: context.textStyles.textBold,
+          ),
           Expanded(
             child: Container(
               margin: const EdgeInsets.only(top: 12),
               child:
-                  GeneralHelperUtilsClass.instance.getRandomBoolean() ? const MockFormPage() : const MockContactTable(),
+                  const MockFormPage(),
+                  // GeneralHelperUtilsClass.instance.getRandomBoolean() ? const MockFormPage() : const MockContactTable(),
             ),
           ),
           const CustomButtonsBar(),
