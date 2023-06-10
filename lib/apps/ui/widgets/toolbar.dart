@@ -14,6 +14,7 @@ class CustomToolbar extends StatefulWidget {
     String menuSelected,
     String subMenuSelected,
     List<Map<String, dynamic>> subMenuItens,
+    bool itenToolbarIsChanged,
   ) callbackMenuItensSelected;
   final void Function(String) callbackItemToolbarSelected;
 

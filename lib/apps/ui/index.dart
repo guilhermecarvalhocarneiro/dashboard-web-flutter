@@ -22,6 +22,7 @@ class IndexPage extends StatefulWidget {
 class _IndexPageState extends State<IndexPage> {
   bool showContextMenu = true;
   bool showContextMenuIsEnabled = false;
+  bool itenToolbarIsChanged = false;
   String menuSelected = '';
   String subMenuSelected = '';
   List<Map<String, dynamic>> subMenuOfToolbarItenSelected = [];
@@ -75,6 +76,7 @@ class _IndexPageState extends State<IndexPage> {
             subMenuSelected: subMenuSelected,
             subMenuItens: subMenuOfToolbarItenSelected,
             callbackSubItemMenuSelected: callbackSubMenuSelected,
+            itenToolbarIsChanged: itenToolbarIsChanged,
           ),
           // buildContentArea(context, null),
         ],
@@ -128,6 +130,7 @@ class _IndexPageState extends State<IndexPage> {
     String menuSelected,
     String subMenuSelected,
     List<Map<String, dynamic>> menuItensSelected,
+    bool toolbarItenIsChanged,
   ) {
     setState(() {
       showContextMenu = showContextMenu;
@@ -135,6 +138,7 @@ class _IndexPageState extends State<IndexPage> {
       menuSelected = menuSelected;
       subMenuSelected = subMenuSelected;
       subMenuOfToolbarItenSelected = menuItensSelected;
+      itenToolbarIsChanged = toolbarItenIsChanged;
     });
   }
 
@@ -142,35 +146,14 @@ class _IndexPageState extends State<IndexPage> {
   /// que terá a função de atualizar o valor do atributo subMenuSelected
   void callbackSubMenuSelected(String subMenuSelected) {
     NuvolsLogger.instance.info('Valor do subMenuSelected: $subMenuSelected');
-    // setState(() {
-    //   subMenuSelected = subMenuSelected;
-    // });
+    setState(() {
+      itenToolbarIsChanged = false;
+    });
   }
 
   /// Função Callback que será passada no construtor da classe CustomSubmenu
   /// que terá a função de atualizar o valor do atributo subMenuSelected
   void callbackItemToolbarSelected(String toolbarItemSelected) {
     NuvolsLogger.instance.info('Valor do toolbarItemSelected: $toolbarItemSelected');
-    // setState(() {
-    //   subMenuSelected = subMenuSelected;
-    // });
-  }
-
-  /// Método auxiliar para setar os valores quando um item do
-  /// submenu for clicado
-  void callBackSetValuesWhenMenuItemIsChoosen(
-    bool showContextMenu,
-    bool showContextMenuIsEnabled,
-    String menuSelected,
-    String subMenuSelected,
-    List<Map<String, dynamic>> subMenuItens,
-  ) {
-    setValuesWhenMenuItemIsChoosen(
-      showContextMenu = showContextMenu,
-      showContextMenuIsEnabled = showContextMenuIsEnabled,
-      menuSelected = menuSelected,
-      subMenuSelected = subMenuSelected,
-      subMenuOfToolbarItenSelected = subMenuItens,
-    );
   }
 }

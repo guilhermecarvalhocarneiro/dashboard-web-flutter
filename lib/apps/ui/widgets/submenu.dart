@@ -13,6 +13,7 @@ class CustomSubmenu extends StatefulWidget {
   final String subMenuSelected;
   final List<Map<String, dynamic>> subMenuItens;
   final void Function(String) callbackSubItemMenuSelected;
+  final bool itenToolbarIsChanged;
 
   const CustomSubmenu({
     super.key,
@@ -22,6 +23,7 @@ class CustomSubmenu extends StatefulWidget {
     required this.subMenuSelected,
     required this.subMenuItens,
     required this.callbackSubItemMenuSelected,
+    this.itenToolbarIsChanged = false,
   });
 
   @override
@@ -33,8 +35,12 @@ class _CustomSubmenuState extends State<CustomSubmenu> {
 
   @override
   Widget build(BuildContext context) {
-    _subMenuSelected = _subMenuSelected.isNotEmpty ? _subMenuSelected : widget.subMenuSelected;
-    NuvolsLogger.instance.debug('Valor do _subMenuSelected: $_subMenuSelected');
+    NuvolsLogger.instance.debug('Valor do widget.itenToolbarIsChanged: ${widget.itenToolbarIsChanged}');
+    if (widget.itenToolbarIsChanged) {
+      _subMenuSelected = '';
+    } else {
+      _subMenuSelected = _subMenuSelected.isNotEmpty ? _subMenuSelected : widget.subMenuSelected;
+    }
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInToLinear,

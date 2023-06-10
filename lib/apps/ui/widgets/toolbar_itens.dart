@@ -13,6 +13,7 @@ class CustomToolbarItens extends StatefulWidget {
     String menuSelected,
     String subMenuSelected,
     List<Map<String, dynamic>> subMenuItens,
+    bool itenToolbarIsChanged,
   ) callbackMenuItensSelected;
   final void Function(String) callbackItemToolbarSelected;
 
@@ -47,13 +48,7 @@ class _CustomToolbarItensState extends State<CustomToolbarItens> {
               ),
               child: IconButton(
                 onPressed: () {
-                  widget.callbackMenuItensSelected(
-                    true,
-                    true,
-                    item['title'],
-                    '',
-                    item['sub_itens'],
-                  );
+                  widget.callbackMenuItensSelected(true, true, item['title'], '', item['sub_itens'], true);
                   setState(() {
                     _toolbarItemSelected = item['title'];
                   });
@@ -67,13 +62,7 @@ class _CustomToolbarItensState extends State<CustomToolbarItens> {
             ),
             InkWell(
               onTap: () {
-                widget.callbackMenuItensSelected(
-                  true,
-                  true,
-                  item['title'],
-                  '',
-                  item['sub_itens'],
-                );
+                widget.callbackMenuItensSelected(true, true, item['title'], '', item['sub_itens'], true);
                 setState(() {
                   _toolbarItemSelected = item['title'];
                 });
