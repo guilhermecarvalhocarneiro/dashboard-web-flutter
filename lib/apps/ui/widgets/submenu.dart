@@ -11,6 +11,7 @@ class CustomSubmenu extends StatefulWidget {
   final String menuSelected;
   final String subMenuSelected;
   final List<Map<String, dynamic>> menuItensSelected;
+  final void Function(String) callbackSubItemMenuSelected;
 
   const CustomSubmenu({
     super.key,
@@ -19,6 +20,7 @@ class CustomSubmenu extends StatefulWidget {
     required this.menuSelected,
     required this.subMenuSelected,
     required this.menuItensSelected,
+    required this.callbackSubItemMenuSelected,
   });
 
   @override
@@ -26,9 +28,12 @@ class CustomSubmenu extends StatefulWidget {
 }
 
 class _CustomSubmenuState extends State<CustomSubmenu> {
+  String _subMenuSelected = '';
 
   @override
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {
+    debugPrint('Chamando o build do submenu, com os itens selecionados: \n ${widget.menuItensSelected}');
+    _subMenuSelected = _subMenuSelected.isNotEmpty ? _subMenuSelected : widget.subMenuSelected;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInToLinear,
@@ -55,21 +60,22 @@ class _CustomSubmenuState extends State<CustomSubmenu> {
                       margin: const EdgeInsets.only(bottom: 12),
                       child: TextButton.icon(
                         onPressed: () {
+                          widget.callbackSubItemMenuSelected(item['title']);
                           setState(() {
-                            // subMenuSelected = item['title'];
+                            _subMenuSelected = item['title'];
                           });
                         },
                         icon: Icon(
                           item['icon'],
-                          size: widget.subMenuSelected == item['title'] ? toolbarIconsSelectedWidth : toolbarIconsMaxWidth,
-                          color: widget.subMenuSelected == item['title']
+                          size: _subMenuSelected == item['title'] ? toolbarIconsSelectedWidth : toolbarIconsMaxWidth,
+                          color: _subMenuSelected == item['title']
                               ? CustomColors.instance.customIconLabelSubMenuItenSelected
                               : Colors.black,
                         ),
                         label: Text(
                           item['title'],
                           style: TextStyle(
-                            color: widget.subMenuSelected == item['title']
+                            color: _subMenuSelected == item['title']
                                 ? CustomColors.instance.customIconLabelSubMenuItenSelected
                                 : Colors.black,
                             fontSize: subMenuLabelIconMenuSize,

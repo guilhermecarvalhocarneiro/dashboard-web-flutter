@@ -15,6 +15,7 @@ import '../../core/ui/widgets/custom_buttons_bar.dart';
 import '../../core/ui/widgets/footer.dart';
 import '../../core/ui/widgets/header.dart';
 import 'widgets/submenu.dart';
+import 'widgets/toolbar_itens.dart';
 
 class IndexPage extends StatefulWidget {
   const IndexPage({super.key});
@@ -37,7 +38,6 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   Widget build(BuildContext context) {
-    // debugPrint('Executando o build, com os seguintes parâmetros: \n showContextMenu: $showContextMenu, \n showContextMenuIsEnabled: $showContextMenuIsEnabled, \n menuSelected: $menuSelected, \n subMenuSelected: $subMenuSelected, \n menuItensSelected: ${menuItensSelected.toList().toString()}');
     return Scaffold(
       body: buildLayout(),
     );
@@ -67,7 +67,6 @@ class _IndexPageState extends State<IndexPage> {
 
   /// Widget para construir a área central da tela
   Widget buildCustomGlobalContent(BuildContext context) {
-    // debugPrint('Executando o buildCustomGlobalContent com os seguintes parâmetros: \n showContextMenu: $showContextMenu, \n showContextMenuIsEnabled: $showContextMenuIsEnabled, \n menuSelected: $menuSelected, \n subMenuSelected: $subMenuSelected, \n menuItensSelected: ${menuItensSelected.toList().toString()}');
     return Expanded(
       child: Row(
         children: [
@@ -77,6 +76,7 @@ class _IndexPageState extends State<IndexPage> {
             menuSelected: menuSelected,
             subMenuSelected: subMenuSelected,
             menuItensSelected: menuItensSelected,
+            callbackSubItemMenuSelected: callbackSubMenuSelected,
           ),
           buildContentArea(context, null),
         ],
@@ -86,7 +86,6 @@ class _IndexPageState extends State<IndexPage> {
 
   /// Widget para construir a toolbar lateral
   Widget buildCustomToolbar() {
-    // debugPrint('Executando o buildCustomToolbar');
     return Container(
       padding: const EdgeInsets.only(top: 12),
       constraints: const BoxConstraints(
@@ -110,28 +109,16 @@ class _IndexPageState extends State<IndexPage> {
             height: 1,
             color: Colors.white.withOpacity(.35),
           ),
-          buildCustomToolbarItens(context),
+          CustomToolbarItens(
+            menuItens: menuItens,
+            callbackMenuItensSelected: callBackSetValuesWhenMenuItemIsChoosen,
+            callbackItemToolbarSelected: callbackItemToolbarSelected,
+            menuSelected: menuSelected,
+          ),
+          // buildCustomToolbarItens(context),
         ],
       ),
     );
-  }
-
-  /// Método auxiliar para setar os valores quando um item do
-  /// submenu for clicado
-  void setValuesWhenMenuItemIsChoosen(
-    bool showContextMenu,
-    bool showContextMenuIsEnabled,
-    String menuSelected,
-    String subMenuSelected,
-    List<Map<String, dynamic>> menuItensSelected,
-  ) {
-    setState(() {
-      showContextMenu = showContextMenu;
-      showContextMenuIsEnabled = showContextMenuIsEnabled;
-      menuSelected = menuSelected;
-      subMenuSelected = subMenuSelected;
-      menuItensSelected = menuItensSelected;
-    });
   }
 
   /// Widget para construir os itens do menu
@@ -231,4 +218,65 @@ class _IndexPageState extends State<IndexPage> {
     );
   }
 
+  /// * ============================================================================
+  /// * ============================================================================
+  /// * Área para métodos e funções auxiliares da classe
+  /// * ============================================================================
+  /// * ============================================================================
+
+  /// Método auxiliar para setar os valores quando um item do
+  /// submenu for clicado
+  void setValuesWhenMenuItemIsChoosen(
+    bool showContextMenu,
+    bool showContextMenuIsEnabled,
+    String menuSelected,
+    String subMenuSelected,
+    List<Map<String, dynamic>> menuItensSelected,
+  ) {
+    debugPrint('Valor do setValuesWhenMenuItemIsChoosen: $menuItensSelected');
+    setState(() {
+      showContextMenu = showContextMenu;
+      showContextMenuIsEnabled = showContextMenuIsEnabled;
+      menuSelected = menuSelected;
+      subMenuSelected = subMenuSelected;
+      menuItensSelected = menuItensSelected;
+    });
+    debugPrint('Valor do menuItensSelected após o SetState: $menuItensSelected');
+  }
+
+  /// Função Callback que será passada no construtor da classe CustomSubmenu
+  /// que terá a função de atualizar o valor do atributo subMenuSelected
+  void callbackSubMenuSelected(String subMenuSelected) {
+    debugPrint('Valor do subMenuSelected: $subMenuSelected');
+    // setState(() {
+    //   subMenuSelected = subMenuSelected;
+    // });
+  }
+
+  /// Função Callback que será passada no construtor da classe CustomSubmenu
+  /// que terá a função de atualizar o valor do atributo subMenuSelected
+  void callbackItemToolbarSelected(String toolbarItemSelected) {
+    debugPrint('Valor do toolBarItemSelected: $toolbarItemSelected');
+    // setState(() {
+    //   subMenuSelected = subMenuSelected;
+    // });
+  }
+
+  /// Método auxiliar para setar os valores quando um item do
+  /// submenu for clicado
+  void callBackSetValuesWhenMenuItemIsChoosen(
+    bool showContextMenu,
+    bool showContextMenuIsEnabled,
+    String menuSelected,
+    String subMenuSelected,
+    List<Map<String, dynamic>> menuItensSelected,
+  ) {
+    setValuesWhenMenuItemIsChoosen(
+      showContextMenu = showContextMenu,
+      showContextMenuIsEnabled = showContextMenuIsEnabled,
+      menuSelected = menuSelected,
+      subMenuSelected = subMenuSelected,
+      menuItensSelected = menuItensSelected,
+    );
+  }
 }
