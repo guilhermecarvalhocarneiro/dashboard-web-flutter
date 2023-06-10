@@ -12,7 +12,7 @@ class CustomToolbarItens extends StatefulWidget {
     bool showContextMenuIsEnabled,
     String menuSelected,
     String subMenuSelected,
-    List<Map<String, dynamic>> menuItensSelected,
+    List<Map<String, dynamic>> subMenuItens,
   ) callbackMenuItensSelected;
   final void Function(String) callbackItemToolbarSelected;
 
@@ -20,7 +20,8 @@ class CustomToolbarItens extends StatefulWidget {
     super.key,
     required this.menuItens,
     required this.callbackMenuItensSelected,
-    required this.callbackItemToolbarSelected, required this.menuSelected,
+    required this.callbackItemToolbarSelected,
+    required this.menuSelected,
   });
 
   @override
@@ -46,20 +47,33 @@ class _CustomToolbarItensState extends State<CustomToolbarItens> {
               ),
               child: IconButton(
                 onPressed: () {
-                  widget.callbackMenuItensSelected(true, true, item['title'], '', item['sub_itens']);
+                  widget.callbackMenuItensSelected(
+                    true,
+                    true,
+                    item['title'],
+                    '',
+                    item['sub_itens'],
+                  );
                   setState(() {
                     _toolbarItemSelected = item['title'];
                   });
                 },
                 icon: Icon(item['icon']),
                 iconSize: _toolbarItemSelected == item['title'] ? toolbarIconsSelectedWidth : toolbarIconsMaxWidth,
-                color: _toolbarItemSelected == item['title'] ? CustomColors.instance.customMenuItenSelected : Colors.white,
+                color:
+                    _toolbarItemSelected == item['title'] ? CustomColors.instance.customMenuItenSelected : Colors.white,
                 hoverColor: Colors.deepOrange,
               ),
             ),
             InkWell(
               onTap: () {
-                widget.callbackMenuItensSelected(true, true, item['title'], '', item['sub_itens']);
+                widget.callbackMenuItensSelected(
+                  true,
+                  true,
+                  item['title'],
+                  '',
+                  item['sub_itens'],
+                );
                 setState(() {
                   _toolbarItemSelected = item['title'];
                 });
@@ -69,7 +83,9 @@ class _CustomToolbarItensState extends State<CustomToolbarItens> {
                 child: Text(
                   item['title'],
                   style: TextStyle(
-                    color: _toolbarItemSelected == item['title'] ? CustomColors.instance.customMenuItenSelected : Colors.white,
+                    color: _toolbarItemSelected == item['title']
+                        ? CustomColors.instance.customMenuItenSelected
+                        : Colors.white,
                     fontSize: toolbarLabelIconMenuSize,
                   ),
                 ),

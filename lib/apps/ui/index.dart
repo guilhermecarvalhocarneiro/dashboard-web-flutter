@@ -29,7 +29,7 @@ class _IndexPageState extends State<IndexPage> {
   bool showContextMenuIsEnabled = false;
   String menuSelected = '';
   String subMenuSelected = '';
-  List<Map<String, dynamic>> menuItensSelected = [];
+  List<Map<String, dynamic>> subMenuOfToolbarItenSelected = [];
 
   @override
   void initState() {
@@ -75,7 +75,7 @@ class _IndexPageState extends State<IndexPage> {
             showContextMenuIsEnabled: showContextMenuIsEnabled,
             menuSelected: menuSelected,
             subMenuSelected: subMenuSelected,
-            menuItensSelected: menuItensSelected,
+            subMenuItens: subMenuOfToolbarItenSelected,
             callbackSubItemMenuSelected: callbackSubMenuSelected,
           ),
           buildContentArea(context, null),
@@ -118,65 +118,6 @@ class _IndexPageState extends State<IndexPage> {
           // buildCustomToolbarItens(context),
         ],
       ),
-    );
-  }
-
-  /// Widget para construir os itens do menu
-  /// retornando uma lista de itens convertidos
-  /// do tipo Map
-  Widget buildCustomToolbarItens(BuildContext context) {
-    return Column(
-      children: menuItens.map((item) {
-        return Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: menuSelected == item['title']
-                    ? CustomColors.instance.customBackgroundColorMenuItenSelected
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: IconButton(
-                onPressed: () {
-                  setValuesWhenMenuItemIsChoosen(
-                    showContextMenu = true,
-                    showContextMenuIsEnabled = true,
-                    menuSelected = item['title'],
-                    subMenuSelected = '',
-                    menuItensSelected = item['sub_itens'],
-                  );
-                },
-                icon: Icon(item['icon']),
-                iconSize: menuSelected == item['title'] ? toolbarIconsSelectedWidth : toolbarIconsMaxWidth,
-                color: menuSelected == item['title'] ? CustomColors.instance.customMenuItenSelected : Colors.white,
-                hoverColor: Colors.deepOrange,
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                setValuesWhenMenuItemIsChoosen(
-                  showContextMenu = true,
-                  showContextMenuIsEnabled = true,
-                  menuSelected = item['title'],
-                  subMenuSelected = '',
-                  menuItensSelected = item['sub_itens'],
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(top: 4),
-                child: Text(
-                  item['title'],
-                  style: TextStyle(
-                    color: menuSelected == item['title'] ? CustomColors.instance.customMenuItenSelected : Colors.white,
-                    fontSize: toolbarLabelIconMenuSize,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-          ],
-        );
-      }).toList(),
     );
   }
 
@@ -239,7 +180,7 @@ class _IndexPageState extends State<IndexPage> {
       showContextMenuIsEnabled = showContextMenuIsEnabled;
       menuSelected = menuSelected;
       subMenuSelected = subMenuSelected;
-      menuItensSelected = menuItensSelected;
+      subMenuOfToolbarItenSelected = menuItensSelected;
     });
     debugPrint('Valor do menuItensSelected após o SetState: $menuItensSelected');
   }
@@ -269,14 +210,14 @@ class _IndexPageState extends State<IndexPage> {
     bool showContextMenuIsEnabled,
     String menuSelected,
     String subMenuSelected,
-    List<Map<String, dynamic>> menuItensSelected,
+    List<Map<String, dynamic>> subMenuItens,
   ) {
     setValuesWhenMenuItemIsChoosen(
       showContextMenu = showContextMenu,
       showContextMenuIsEnabled = showContextMenuIsEnabled,
       menuSelected = menuSelected,
       subMenuSelected = subMenuSelected,
-      menuItensSelected = menuItensSelected,
+      subMenuOfToolbarItenSelected = subMenuItens,
     );
   }
 }

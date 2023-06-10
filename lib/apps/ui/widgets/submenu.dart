@@ -10,7 +10,7 @@ class CustomSubmenu extends StatefulWidget {
   final bool showContextMenuIsEnabled;
   final String menuSelected;
   final String subMenuSelected;
-  final List<Map<String, dynamic>> menuItensSelected;
+  final List<Map<String, dynamic>> subMenuItens;
   final void Function(String) callbackSubItemMenuSelected;
 
   const CustomSubmenu({
@@ -19,7 +19,7 @@ class CustomSubmenu extends StatefulWidget {
     required this.showContextMenuIsEnabled,
     required this.menuSelected,
     required this.subMenuSelected,
-    required this.menuItensSelected,
+    required this.subMenuItens,
     required this.callbackSubItemMenuSelected,
   });
 
@@ -32,7 +32,7 @@ class _CustomSubmenuState extends State<CustomSubmenu> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('Chamando o build do submenu, com os itens selecionados: \n ${widget.menuItensSelected}');
+    debugPrint('Chamando o build do submenu, com os itens selecionados: \n ${widget.subMenuItens}');
     _subMenuSelected = _subMenuSelected.isNotEmpty ? _subMenuSelected : widget.subMenuSelected;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
@@ -52,10 +52,10 @@ class _CustomSubmenuState extends State<CustomSubmenu> {
             color: CustomColors.instance.customSubMenuAppUIColorWithOpcatity,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: widget.menuItensSelected.isNotEmpty
+          child: widget.subMenuItens.isNotEmpty
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: widget.menuItensSelected.map((item) {
+                  children: widget.subMenuItens.map((item) {
                     return Container(
                       margin: const EdgeInsets.only(bottom: 12),
                       child: TextButton.icon(
