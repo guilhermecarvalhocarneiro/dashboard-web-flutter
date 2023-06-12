@@ -1,3 +1,98 @@
+///
+/// Para estudar como implementar métodos de callBack que atualizem a 'tela' pai,
+/// utilizar como referência a implementação do CustomTextFormField contido no arquivo
+/// [lib/core/user_interface/widget/CustomTextFormField] do projeto [iteeia] na [linha 1056]
+/// e.g.:
+/// ```dart
+///  class CustomTextFormField extends StatelessWidget {
+///   final String labelText;
+///   final String hintText;
+///   final FormFieldValidator<String>? customValidator;
+///   final ValueChanged<String>? customOnChanged;
+///   final List<TextInputFormatter>? inputFormatters;
+///   final FocusNode? focusNode;
+///   final TextInputType keyBoardType;
+///   final bool obscureValue;
+///   final bool readOnly;
+///   final int? maxLineField;
+///   final int? maxLengthCharacter;
+///   final TextEditingController controller;
+///   final bool hiddenCounter;
+///
+///   const CustomTextFormField(
+///       {Key? key,
+///       required this.labelText,
+///       required this.hintText,
+///       required this.controller,
+///       this.customValidator,
+///       this.customOnChanged,
+///       this.inputFormatters,
+///       this.focusNode,
+///       this.keyBoardType = TextInputType.text,
+///       this.obscureValue = false,
+///       this.readOnly = false,
+///       this.maxLineField = null,
+///       this.maxLengthCharacter = null,
+///       this.hiddenCounter = false})
+///       : super(key: key);
+///
+///   @override
+///   Widget build(BuildContext context) {
+///     return Column(
+///       crossAxisAlignment: CrossAxisAlignment.start,
+///       mainAxisAlignment: MainAxisAlignment.start,
+///       children: [
+///         CustomTextFormFieldLabel(labelText: labelText),
+///         Container(
+///           margin: const EdgeInsets.only(bottom: 18),
+///           child: TextFormField(
+///             controller: controller,
+///             validator: customValidator,
+///             onChanged: customOnChanged,
+///             inputFormatters: inputFormatters,
+///             keyboardType: keyBoardType,
+///             obscureText: obscureValue,
+///             readOnly: readOnly,
+///             maxLines: maxLineField,
+///             focusNode: this.focusNode,
+///             maxLength: maxLengthCharacter ?? null,
+///             decoration: CustomTextFormFieldStyle.textFieldStyle(hintText: hintText, hiddenCounter: hiddenCounter),
+///           ),
+///         )
+///       ],
+///     );
+///   }
+///  }
+/// ```
+/// e também no arquivo [lib/apps;checklist/pages/actionPlan.dart] do projeto [iteeia] na [linha 185]
+/// os métodos são para componentes do tipo TextField, mas o conceito é o mesmo para qualquer componente
+/// e.g.:
+/// ```dart
+/// 
+///  String? validadorResponsavel(String? textValue) {
+///   if (textValue != null) {
+///     if (textValue.isEmpty) {
+///       return 'Informe o nome do responsável';
+///     }
+///   } else {
+///     return 'Informe o nome do responsável';
+///   }
+///   return null;
+///  }
+/// 
+/// Widget buildTextFormsFieldsDynamicResponsavel(int index) {
+///    return CustomTextFormField(
+///      labelText: 'Responsável',
+///      hintText: 'Informe o nome do responsável por essa ação',
+///      controller: _responsavelControllers[index],
+///      customValidator: validadorResponsavel,
+///      customOnChanged: (text) {
+///        _respostasDesconformes[index].responsavel = text;
+///      },
+///    );
+///  }
+/// ```
+///
 import 'package:flutter/material.dart';
 
 import '../../../core/extensions/size.dart';
