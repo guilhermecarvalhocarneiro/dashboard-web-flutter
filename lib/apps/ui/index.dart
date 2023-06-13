@@ -96,7 +96,7 @@ class _IndexPageState extends State<IndexPage> {
           color: CustomColors.instance.customContentAreaAppUIColorWithOpcatity,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Charts(),
+        child: child,
       ),
     );
   }
