@@ -40,6 +40,13 @@ final List<Map<String, dynamic>> menuItens = [
     'selected': false,
     'sub_itens': [
       {
+        'title': 'Gráficos',
+        'icon': LineIcons.barChartAlt,
+        'route': '/subitem1',
+        'alt': 'Gráficos',
+        'selected': false,
+      },
+      {
         'title': 'Contas a pagar',
         'icon': LineIcons.paypal,
         'route': '/subitem1',

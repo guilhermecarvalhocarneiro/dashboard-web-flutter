@@ -174,3 +174,8 @@ fabric.properties
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,visualstudiocode,intellij+all
+
+
+.fvm/flutter_sdk
+
+.fvm/flutter_sdk

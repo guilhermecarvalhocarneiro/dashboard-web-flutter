@@ -5,9 +5,10 @@ import '../../core/ui/theme/colors.dart';
 import '../../core/ui/widgets/background.dart';
 import '../../core/ui/widgets/footer.dart';
 import '../../core/ui/widgets/header.dart';
-import '../index/pages/home.dart';
 import '../../core/ui/widgets/submenu.dart';
 import '../../core/ui/widgets/toolbar.dart';
+import '../index/pages/charts.dart';
+import '../index/pages/home.dart';
 
 class IndexPage extends StatefulWidget {
   const IndexPage({super.key});
@@ -95,7 +96,7 @@ class _IndexPageState extends State<IndexPage> {
           color: CustomColors.instance.customContentAreaAppUIColorWithOpcatity,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: child,
+        child: const Charts(),
       ),
     );
   }
