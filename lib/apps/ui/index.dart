@@ -5,9 +5,9 @@ import '../../core/ui/theme/colors.dart';
 import '../../core/ui/widgets/background.dart';
 import '../../core/ui/widgets/footer.dart';
 import '../../core/ui/widgets/header.dart';
+import '../../core/ui/widgets/modal_window.dart';
 import '../../core/ui/widgets/submenu.dart';
 import '../../core/ui/widgets/toolbar.dart';
-import '../index/pages/charts.dart';
 import '../index/pages/home.dart';
 
 class IndexPage extends StatefulWidget {
@@ -24,6 +24,7 @@ class _IndexPageState extends State<IndexPage> {
   String menuSelected = '';
   String subMenuSelected = '';
   List<Map<String, dynamic>> subMenuOfToolbarItenSelected = [];
+  bool _showModalWindow = false;
 
   @override
   void initState() {
@@ -35,6 +36,14 @@ class _IndexPageState extends State<IndexPage> {
     return Scaffold(
       body: buildLayout(),
     );
+  }
+
+  // Método a ser invocado pela tela filha de Callback que
+  // mostrará ou ocultará a janela modal
+  void showModalWindow({bool showModal = true}) {
+    setState(() {
+      _showModalWindow = showModal;
+    });
   }
 
   Widget buildLayout() {
@@ -58,6 +67,16 @@ class _IndexPageState extends State<IndexPage> {
             ),
           ],
         ),
+        // Janela modal
+        Visibility(
+          visible: _showModalWindow,
+          child: ModalWindow(
+            callbackShowModalWindow: showModalWindow,
+            child: const Text(
+              'Modal Window',
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -78,7 +97,9 @@ class _IndexPageState extends State<IndexPage> {
           ),
           buildContentArea(
             context,
-            const IndexPageHome(),
+            IndexPageHome(
+              callbackShowModalWindow: showModalWindow,
+            ),
           ),
         ],
       ),

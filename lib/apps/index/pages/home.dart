@@ -3,18 +3,19 @@ import 'package:flutter/material.dart';
 import '../../../core/mocks/form_page.dart';
 import '../../../core/ui/styles/text_styles.dart';
 import '../../../core/ui/widgets/custom_button.dart';
-import '../../../core/ui/widgets/modal_window.dart';
 
 class IndexPageHome extends StatefulWidget {
-  const IndexPageHome({super.key});
+  // Método Callback que será invocado pela tela filha
+  // para mostrar ou ocultar a janela modal
+  final Function({bool showModal}) callbackShowModalWindow;
+
+  const IndexPageHome({super.key, required this.callbackShowModalWindow});
 
   @override
   State<IndexPageHome> createState() => _IndexPageHomeState();
 }
 
 class _IndexPageHomeState extends State<IndexPageHome> {
-  bool _showModalWindow = false;
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -40,22 +41,11 @@ class _IndexPageHomeState extends State<IndexPageHome> {
                 child: CustomButton(
                   labelButton: 'Adicionar novo registro',
                   callbackButtonPressed: () {
-                    setState(() {
-                      _showModalWindow = true;
-                    });
+                    widget.callbackShowModalWindow();
                   },
                 ),
               ),
             ],
-          ),
-        ),
-        // Janela modal
-        Visibility(
-          visible: _showModalWindow,
-          child: const ModalWindow(
-            child: Text(
-              'Modal Window',
-            ),
           ),
         ),
       ],
