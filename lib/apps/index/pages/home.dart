@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/extensions/open_modal_window.dart';
 import '../../../core/mocks/form_page.dart';
 import '../../../core/ui/styles/text_styles.dart';
 import '../../../core/ui/widgets/custom_button.dart';
+import '../../../core/ui/widgets/modal_window_slide.dart';
 
 class IndexPageHome extends StatefulWidget {
   // Método Callback que será invocado pela tela filha
@@ -41,7 +43,13 @@ class _IndexPageHomeState extends State<IndexPageHome> {
                 child: CustomButton(
                   labelButton: 'Adicionar novo registro',
                   callbackButtonPressed: () {
-                    widget.callbackShowModalWindow();
+                    Navigator.of(context).push(
+                      context.openModalWindow(
+                        const ModalWindowSlide(
+                          child: Text('Teste'),
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),
