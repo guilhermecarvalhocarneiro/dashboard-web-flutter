@@ -6,7 +6,7 @@ Projeto desenvolvido com o objetivo de criar um backoffice para sistemas web dis
 
 ## Dados do projeto
 
-**Data de Criação**: 08-06-2023
+**Data de Criação**: 08-06-2023  
 **Flutter Version**: 3.10.2
 
 ## Pacotes Utilizados
