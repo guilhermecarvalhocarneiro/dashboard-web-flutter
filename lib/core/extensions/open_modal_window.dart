@@ -8,6 +8,7 @@ extension OpenModalWindowExtension on BuildContext {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => widget,
       opaque: false,
+      transitionDuration: const Duration(milliseconds: 600),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(1.0, 0.0);
         const end = Offset.zero;

@@ -40,12 +40,12 @@ class _ModalWindowSlideState extends State<ModalWindowSlide> {
                 Navigator.of(context).pop();
               },
               child: Container(
-                width: MediaQuery.sizeOf(context).width * .35,
+                width: MediaQuery.sizeOf(context).width * .30,
                 color: Colors.transparent,
               ),
             ),
             Container(
-              width: MediaQuery.sizeOf(context).width * .65,
+              width: MediaQuery.sizeOf(context).width * .70,
               height: MediaQuery.sizeOf(context).height,
               padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 12),
               decoration: const BoxDecoration(
