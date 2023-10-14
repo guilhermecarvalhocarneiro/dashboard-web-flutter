@@ -107,16 +107,18 @@ class _IndexPageState extends State<IndexPage> {
   }
 
   /// Widget para construir a área do content principal
-  Widget buildContentArea(BuildContext context, Widget? child) {
+  Widget buildContentArea(BuildContext context, Widget? child, {bool showBackgroundColorOpacity = true}) {
     return Flexible(
       flex: 2,
       child: Container(
         padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
         margin: const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
-        decoration: BoxDecoration(
-          color: CustomColors.instance.customContentAreaAppUIColorWithOpcatity,
-          borderRadius: BorderRadius.circular(12),
-        ),
+        decoration: showBackgroundColorOpacity
+            ? BoxDecoration(
+                color: CustomColors.instance.customContentAreaAppUIColorWithOpcatity,
+                borderRadius: BorderRadius.circular(12),
+              )
+            : null,
         child: child,
       ),
     );
